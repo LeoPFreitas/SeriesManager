@@ -7,11 +7,13 @@
     tools:context=".MainActivity">
 
         <ListView
+            android:id="@+id/activityMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/activityMain" />
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="-116dp" />
 
-<!--    <TextView-->
+        <!--    <TextView-->
 <!--        android:id="@+id/textView"-->
 <!--        android:layout_width="0dp"-->
 <!--        android:layout_height="wrap_content"-->
