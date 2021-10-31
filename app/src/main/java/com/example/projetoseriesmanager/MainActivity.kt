@@ -1,15 +1,24 @@
 package com.example.projetoseriesmanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projetoseriesmanager.databinding.ActivityMainBinding
 import com.example.projetoseriesmanager.model.Serie
 
 class MainActivity : AppCompatActivity() {
+    companion object Extras {
+        const val EXTRA_SERIE = "EXTRA_SERIE"
+    }
+
     private val activityMainBinding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
+    private lateinit var serieActivityResultLauncher: ActivityResultLauncher<Intent>
 
     // datasource
     private val seriesList: MutableList<Serie> = mutableListOf()
@@ -34,10 +43,24 @@ class MainActivity : AppCompatActivity() {
 
         // associar
         activityMainBinding.activityMain.adapter = seriesAdapter
+
+        serieActivityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
+                if (res.resultCode == RESULT_OK) {
+                    res.data?.getParcelableExtra<Serie>(EXTRA_SERIE)?.apply {
+                        seriesList.add(this) // n é necessário
+                        seriesAdapter.add(this.toString())
+                    }
+                }
+            }
+
+        activityMainBinding.addSerieBtn.setOnClickListener {
+            serieActivityResultLauncher.launch(Intent(this, SerieActivity::class.java))
+        }
     }
 
     private fun initializeSeriesList() {
-        for (i in 1..20) {
+        for (i in 1..2) {
             seriesList.add(
                 Serie(
                     "Serie ${i}",
@@ -48,4 +71,5 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
+
 }

@@ -10,7 +10,7 @@
         android:id="@+id/nomeTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Nome Serie"
+        android:text="@string/serieName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:enabled="true"
-        android:hint="Nome serie"
+        android:hint="@string/serieName"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
         android:id="@+id/anoLancamentoTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ano Lançamento"
+        android:text="@string/anoLancamento"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nomeEt" />
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:enabled="true"
-        android:hint="yyyy-mm-dd"
+        android:hint="@string/dateFormaHint"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
         android:id="@+id/emissoraTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Emissora"
+        android:text="@string/emissora"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/anoLancamentoEt" />
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:enabled="true"
-        android:hint="Emmissora"
+        android:hint="@string/emissora"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +73,7 @@
         android:id="@+id/generoTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Genero"
+        android:text="@string/genero"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emissoraEt" />
@@ -89,10 +89,10 @@
     <Button
         android:id="@+id/salvarBt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Salvar"
+        android:layout_height="48dp"
+        android:text="@string/add_serie"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/generoSp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

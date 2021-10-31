@@ -6,4 +6,10 @@
     <string name="anoLancamentoTvHint">Ano lançamento</string>
     <string name="emissoraTvHint">Emissora</string>
     <string name="generoTvHint">Genero</string>
+    <string name="add_serie">Add serie</string>
+    <string name="genero">Genero</string>
+    <string name="emissora">Emissora</string>
+    <string name="dateFormaHint">yyyy-mm-dd</string>
+    <string name="anoLancamento">Ano Lançamento</string>
+    <string name="serieName">Nome serie</string>
 </resources>
