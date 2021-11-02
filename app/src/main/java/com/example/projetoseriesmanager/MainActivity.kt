@@ -9,28 +9,27 @@ import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.example.projetoseriesmanager.adapter.SerieAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.projetoseriesmanager.adapter.SerieRvAdapter
 import com.example.projetoseriesmanager.databinding.ActivityMainBinding
 import com.example.projetoseriesmanager.model.Serie
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnSerieClickListener {
     companion object Extras {
         const val EXTRA_SERIE = "EXTRA_SERIE"
         const val EXTRA_POSITION = "EXTRA_POSITION"
     }
 
-    private val activityMainBinding: ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
-
+    private val serieLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(this) }
+    private val seriesList: MutableList<Serie> = mutableListOf()
+    private val seriesAdapter: SerieRvAdapter by lazy { SerieRvAdapter(this, seriesList) }
     private lateinit var serieActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var editSerieActivityResultLauncher: ActivityResultLauncher<Intent>
 
-    // datasource
-    private val seriesList: MutableList<Serie> = mutableListOf()
-
-    private val seriesAdapter: SerieAdapter by lazy {
-        SerieAdapter(this, R.layout.serie_layout, seriesList)
+    private val activityMainBinding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(
+            layoutInflater
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,10 +40,8 @@ class MainActivity : AppCompatActivity() {
         initializeSeriesList()
 
         // associar
-        activityMainBinding.seriesListView.adapter = seriesAdapter
-
-        // registrar menu de contexto
-        registerForContextMenu(activityMainBinding.seriesListView)
+        activityMainBinding.seriesRv.adapter = seriesAdapter
+        activityMainBinding.seriesRv.layoutManager = serieLayoutManager
 
         // Add serie
         serieActivityResultLauncher =
@@ -71,13 +68,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-
-        activityMainBinding.seriesListView.setOnItemClickListener { _, _, position, _ ->
-            val serie = seriesList[position]
-            val viewSerieIntent = Intent(this, SerieActivity::class.java)
-            viewSerieIntent.putExtra(EXTRA_SERIE, serie)
-            startActivity(viewSerieIntent)
-        }
 
         activityMainBinding.addSerieFab.setOnClickListener {
             serieActivityResultLauncher.launch(Intent(this, SerieActivity::class.java))
@@ -124,5 +114,12 @@ class MainActivity : AppCompatActivity() {
             }
             else -> false
         }
+    }
+
+    override fun onSerieClick(position: Int) {
+        val serie = seriesList[position]
+        val viewSerieIntent = Intent(this, SerieActivity::class.java)
+        viewSerieIntent.putExtra(EXTRA_SERIE, serie)
+        startActivity(viewSerieIntent)
     }
 }
