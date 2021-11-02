@@ -31,6 +31,7 @@ class SerieActivity : AppCompatActivity() {
 
         val position = intent.getIntExtra(MainActivity.EXTRA_POSITION, -1)
         intent.getParcelableExtra<Serie>(EXTRA_SERIE)?.run {
+            activitySerieBinding.nomeEt.isEnabled = false
             activitySerieBinding.nomeEt.setText(this.nome)
             activitySerieBinding.anoLancamentoEt.setText(this.anoLancamento)
             activitySerieBinding.emissoraEt.setText(this.emissora)
