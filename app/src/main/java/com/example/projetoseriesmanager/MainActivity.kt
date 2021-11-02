@@ -2,10 +2,7 @@ package com.example.projetoseriesmanager
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.ContextMenu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -87,17 +84,8 @@ class MainActivity : AppCompatActivity(), OnSerieClickListener {
         }
     }
 
-    override fun onCreateContextMenu(
-        menu: ContextMenu?,
-        v: View?,
-        menuInfo: ContextMenu.ContextMenuInfo?
-    ) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        menuInflater.inflate(R.menu.context_menu_serie, menu)
-    }
-
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        val position = (item.menuInfo as AdapterView.AdapterContextMenuInfo).position
+        val position = seriesAdapter.contextMenuPosition
         return when (item.itemId) {
             R.id.editSerieMi -> {
                 val serie = seriesList[position]
