@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Projeto SeriesManager</string>
     <string name="series_adicionadas">series adicionadas</string>
-    <string name="adicionar_serie">Adicionar Serie</string>
+    <string name="adicionar_serie">Adicionar serie</string>
     <string name="nomeTvHint">Nome</string>
     <string name="anoLancamentoTvHint">Ano lançamento</string>
     <string name="emissoraTvHint">Emissora</string>

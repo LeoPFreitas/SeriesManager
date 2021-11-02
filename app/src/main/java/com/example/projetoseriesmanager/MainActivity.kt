@@ -2,16 +2,21 @@ package com.example.projetoseriesmanager
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import android.view.ContextMenu
+import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.projetoseriesmanager.adapter.SerieAdapter
 import com.example.projetoseriesmanager.databinding.ActivityMainBinding
 import com.example.projetoseriesmanager.model.Serie
 
 class MainActivity : AppCompatActivity() {
     companion object Extras {
         const val EXTRA_SERIE = "EXTRA_SERIE"
+        const val EXTRA_POSITION = "EXTRA_POSITION"
     }
 
     private val activityMainBinding: ActivityMainBinding by lazy {
@@ -19,20 +24,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var serieActivityResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var editSerieActivityResultLauncher: ActivityResultLauncher<Intent>
 
     // datasource
     private val seriesList: MutableList<Serie> = mutableListOf()
 
-    // adapter
-    private val seriesAdapter: ArrayAdapter<String> by lazy {
-//        val resource = R.id.seriesLayout
-        ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, seriesList.run {
-            val seriesStringList = mutableListOf<String>()
-            this.forEach { serie -> seriesStringList.add(serie.toString()) }
-            seriesStringList
-        })
+    private val seriesAdapter: SerieAdapter by lazy {
+        SerieAdapter(this, R.layout.serie_layout, seriesList)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,19 +41,45 @@ class MainActivity : AppCompatActivity() {
         initializeSeriesList()
 
         // associar
-        activityMainBinding.activityMain.adapter = seriesAdapter
+        activityMainBinding.seriesListView.adapter = seriesAdapter
 
+        // registrar menu de contexto
+        registerForContextMenu(activityMainBinding.seriesListView)
+
+        // Add serie
         serieActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
                 if (res.resultCode == RESULT_OK) {
                     res.data?.getParcelableExtra<Serie>(EXTRA_SERIE)?.apply {
-                        seriesList.add(this) // n é necessário
-                        seriesAdapter.add(this.toString())
+                        seriesList.add(this)
+                        seriesAdapter.notifyDataSetChanged()
                     }
                 }
             }
 
-        activityMainBinding.addSerieBtn.setOnClickListener {
+        // edit serie
+        editSerieActivityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
+                if (res.resultCode == RESULT_OK) {
+                    val position = res.data?.getIntExtra(EXTRA_POSITION, -1)
+
+                    res.data?.getParcelableExtra<Serie>(EXTRA_SERIE)?.apply {
+                        if (position != null && position != -1) {
+                            seriesList[position] = this
+                            seriesAdapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+            }
+
+        activityMainBinding.seriesListView.setOnItemClickListener { _, _, position, _ ->
+            val serie = seriesList[position]
+            val viewSerieIntent = Intent(this, SerieActivity::class.java)
+            viewSerieIntent.putExtra(EXTRA_SERIE, serie)
+            startActivity(viewSerieIntent)
+        }
+
+        activityMainBinding.addSerieFab.setOnClickListener {
             serieActivityResultLauncher.launch(Intent(this, SerieActivity::class.java))
         }
     }
@@ -72,4 +97,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        menuInflater.inflate(R.menu.context_menu_serie, menu)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val position = (item.menuInfo as AdapterView.AdapterContextMenuInfo).position
+        return when (item.itemId) {
+            R.id.editSerieMi -> {
+                val serie = seriesList[position]
+                val editSerieIntent = Intent(this, SerieActivity::class.java)
+                editSerieIntent.putExtra(EXTRA_SERIE, serie)
+                editSerieIntent.putExtra(EXTRA_POSITION, position)
+                editSerieActivityResultLauncher.launch(editSerieIntent)
+                true
+            }
+            R.id.removeSerieMi -> {
+                seriesList.removeAt(position)
+                seriesAdapter.notifyDataSetChanged()
+                true
+            }
+            else -> false
+        }
+    }
 }
