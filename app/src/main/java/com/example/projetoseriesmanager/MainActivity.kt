@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projetoseriesmanager.adapter.SerieRvAdapter
 import com.example.projetoseriesmanager.controller.SerieController
 import com.example.projetoseriesmanager.databinding.ActivityMainBinding
 import com.example.projetoseriesmanager.model.Serie
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), OnSerieClickListener {
     companion object Extras {
@@ -86,9 +88,27 @@ class MainActivity : AppCompatActivity(), OnSerieClickListener {
                 true
             }
             R.id.removeSerieMi -> {
-                serieControler.remove(seriesList[position].nome)
-                seriesList.removeAt(position)
-                seriesAdapter.notifyDataSetChanged()
+                with(AlertDialog.Builder(this)) {
+                    setMessage("Confirma remoção")
+                    setPositiveButton("Sim") { _, _ ->
+                        serieControler.remove(seriesList[position].nome)
+                        Snackbar.make(
+                            activityMainBinding.root,
+                            "Livro removido",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                        seriesList.removeAt(position)
+                        seriesAdapter.notifyDataSetChanged()
+                    }
+                    setNegativeButton("Não") { _, _ ->
+                        Snackbar.make(
+                            activityMainBinding.root,
+                            "Remoção cancelada",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                    create()
+                }.show()
                 true
             }
             else -> false
