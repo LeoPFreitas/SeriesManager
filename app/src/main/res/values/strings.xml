@@ -13,4 +13,5 @@
     <string name="anoLancamento">Ano Lançamento</string>
     <string name="serieName">Nome serie</string>
     <string name="adicionar_temporada">Adicionar Temporada</string>
+    <string name="numero_sequencial">Numero Sequencial</string>
 </resources>
