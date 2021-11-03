@@ -4,6 +4,9 @@
         android:id="@+id/editSerieMi"
         android:title="Editar" />
     <item
+        android:id="@+id/viewSerieMi"
+        android:title="Visualizar" />
+    <item
         android:id="@+id/removeSerieMi"
         android:title="Remover" />
 

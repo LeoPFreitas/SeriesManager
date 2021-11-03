@@ -22,6 +22,7 @@ class SerieMainActivity : AppCompatActivity(), OnSerieClickListener {
 
     private lateinit var serieActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var editSerieActivityResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var viewSerieActivityResultLauncher: ActivityResultLauncher<Intent>
 
     private val serieLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(this) }
     private val serieControler: SerieController by lazy { SerieController(this) }
@@ -71,6 +72,15 @@ class SerieMainActivity : AppCompatActivity(), OnSerieClickListener {
                 }
             }
 
+        // edit serie
+        viewSerieActivityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
+                if (res.resultCode == RESULT_OK) {
+                    res.data?.getParcelableExtra<Serie>(EXTRA_SERIE)?.apply {
+                    }
+                }
+            }
+
         activityMainBinding.addSerieFab.setOnClickListener {
             serieActivityResultLauncher.launch(Intent(this, SerieActivity::class.java))
         }
@@ -111,13 +121,20 @@ class SerieMainActivity : AppCompatActivity(), OnSerieClickListener {
                 }.show()
                 true
             }
+            R.id.viewSerieMi -> {
+                val serie = seriesList[position]
+                val viewSerieIntent = Intent(this, SerieActivity::class.java)
+                viewSerieIntent.putExtra(EXTRA_SERIE, serie)
+                viewSerieActivityResultLauncher.launch(viewSerieIntent)
+                true
+            }
             else -> false
         }
     }
 
     override fun onSerieClick(position: Int) {
         val serie = seriesList[position]
-        val viewSerieIntent = Intent(this, SerieActivity::class.java)
+        val viewSerieIntent = Intent(this, TemporadaMainActivity::class.java)
         viewSerieIntent.putExtra(EXTRA_SERIE, serie)
         startActivity(viewSerieIntent)
     }
