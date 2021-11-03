@@ -3,14 +3,14 @@ package com.example.projetoseriesmanager
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.example.projetoseriesmanager.MainActivity.Extras.EXTRA_SERIE
-import com.example.projetoseriesmanager.databinding.ActivitySerieBinding
+import com.example.projetoseriesmanager.SerieMainActivity.Extras.EXTRA_SERIE
+import com.example.projetoseriesmanager.databinding.SerieActivityBinding
 import com.example.projetoseriesmanager.model.Serie
 
 class SerieActivity : AppCompatActivity() {
 
-    private val activitySerieBinding: ActivitySerieBinding by lazy {
-        ActivitySerieBinding.inflate(layoutInflater)
+    private val activitySerieBinding: SerieActivityBinding by lazy {
+        SerieActivityBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +29,7 @@ class SerieActivity : AppCompatActivity() {
             finish()
         }
 
-        val position = intent.getIntExtra(MainActivity.EXTRA_POSITION, -1)
+        val position = intent.getIntExtra(SerieMainActivity.EXTRA_POSITION, -1)
         intent.getParcelableExtra<Serie>(EXTRA_SERIE)?.run {
             activitySerieBinding.nomeEt.isEnabled = false
             activitySerieBinding.nomeEt.setText(this.nome)
