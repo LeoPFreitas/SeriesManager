@@ -5,7 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Temporada(
-    val id: Int,
     val numeroSequencial: Int,
     val anoLancamento: String,
     val nomeSerie: String

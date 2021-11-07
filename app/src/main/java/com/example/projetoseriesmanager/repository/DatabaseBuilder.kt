@@ -24,6 +24,14 @@ class DatabaseBuilde(context: Context) {
                     "${SerieSqlite.COL_GENERO} TEXT NOT NULL, " +
                     "FOREIGN KEY(${SerieSqlite.COL_GENERO}) REFERENCES genero(nome)" +
                     ");"
+
+        private val CRIAR_TABELA_TEMPORADA_STMT =
+            "CREATE TABLE IF NOT EXISTS ${TemporadaSqlite.TABLE_TEMPORADA} (" +
+                    "${TemporadaSqlite.COL_NUMERO_SEQUENCIAL} INTEGER NOT NULL PRIMARY KEY, " +
+                    "${TemporadaSqlite.COL_ANO_LANCAMENTO} TEXT NOT NULL, " +
+                    "${TemporadaSqlite.COL_NOME_SERIE} TEXT NOT NULL, " +
+                    "FOREIGN KEY(${TemporadaSqlite.COL_NOME_SERIE}) REFERENCES ${SerieSqlite.TABLE_SERIE}(${SerieSqlite.COL_NOME}) ON DELETE CASCADE" +
+                    ");"
     }
 
     val seriesBD: SQLiteDatabase =
@@ -33,6 +41,7 @@ class DatabaseBuilde(context: Context) {
         try {
             seriesBD.execSQL(CRIAR_TABELA_GENERO_STMT)
             seriesBD.execSQL(CRIAR_TABELA_SERIE_STMT)
+            seriesBD.execSQL(CRIAR_TABELA_TEMPORADA_STMT)
         } catch (se: SQLException) {
             Log.e(context.getString(R.string.app_name), se.toString())
         }

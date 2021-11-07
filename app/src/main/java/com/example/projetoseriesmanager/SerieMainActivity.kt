@@ -72,7 +72,7 @@ class SerieMainActivity : AppCompatActivity(), OnSerieClickListener {
                 }
             }
 
-        // edit serie
+        // view serie
         viewSerieActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
                 if (res.resultCode == RESULT_OK) {
