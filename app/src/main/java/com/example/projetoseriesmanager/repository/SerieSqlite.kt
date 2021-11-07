@@ -14,7 +14,7 @@ class SerieSqlite(context: Context) : SerieDAO {
         const val COL_GENERO = "genero"
     }
 
-    private val serieDatabase: SQLiteDatabase = DatabaseBuilde(context).seriesBD
+    private val serieDatabase: SQLiteDatabase = DatabaseBuilder(context).seriesBD
 
     override fun create(serie: Serie): Long {
         val serieCv = ContentValues()

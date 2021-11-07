@@ -7,14 +7,20 @@ import android.database.sqlite.SQLiteDatabase
 import android.util.Log
 import com.example.projetoseriesmanager.R
 
-class DatabaseBuilde(context: Context) {
+class DatabaseBuilder(context: Context) {
 
     companion object {
         private val BD_SERIES_MANAGER = "series_manager"
 
-        private val CRIAR_TABELA_GENERO_STMT = "CREATE TABLE IF NOT EXISTS genero (" +
-                "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
-                "nome TEXT NOT NULL UNIQUE);"
+        private val CRIAR_TABELA_GENERO_STMT =
+            "CREATE TABLE IF NOT EXISTS ${GeneroSlite.TABLE_GENERO} (" +
+                    "${GeneroSlite.TABLE_GENERO} TEXT NOT NULL PRIMARY KEY);"
+
+        private val INSERT_ROMANCE_TABELA_GENERO_STMT =
+            "INSERT INTO genero (nome) VALUES('Romance');"
+        private val INSERT_AVENTURA_TABELA_GENERO_STMT =
+            "INSERT INTO genero (nome) VALUES('Aventura');"
+        private val INSERT_TERROR_TABELA_GENERO_STMT = "INSERT INTO genero (nome) VALUES('Terror');"
 
         private val CRIAR_TABELA_SERIE_STMT =
             "CREATE TABLE IF NOT EXISTS ${SerieSqlite.TABLE_SERIE} (" +
@@ -40,6 +46,9 @@ class DatabaseBuilde(context: Context) {
     init {
         try {
             seriesBD.execSQL(CRIAR_TABELA_GENERO_STMT)
+            seriesBD.execSQL(INSERT_ROMANCE_TABELA_GENERO_STMT)
+            seriesBD.execSQL(INSERT_AVENTURA_TABELA_GENERO_STMT)
+            seriesBD.execSQL(INSERT_TERROR_TABELA_GENERO_STMT)
             seriesBD.execSQL(CRIAR_TABELA_SERIE_STMT)
             seriesBD.execSQL(CRIAR_TABELA_TEMPORADA_STMT)
         } catch (se: SQLException) {

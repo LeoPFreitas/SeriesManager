@@ -13,7 +13,7 @@ class TemporadaSqlite(context: Context) : TemporadaDAO {
         const val COL_NOME_SERIE = "serie"
     }
 
-    private val serieDatabase: SQLiteDatabase = DatabaseBuilde(context).seriesBD
+    private val serieDatabase: SQLiteDatabase = DatabaseBuilder(context).seriesBD
 
     override fun delete(numeroSequencial: Int): Int {
         serieDatabase.execSQL("PRAGMA foreign_keys = ON")
