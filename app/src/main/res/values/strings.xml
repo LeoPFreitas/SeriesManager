@@ -14,4 +14,9 @@
     <string name="serieName">Nome serie</string>
     <string name="adicionar_temporada">Adicionar Temporada</string>
     <string name="numero_sequencial">Numero Sequencial</string>
+    <string name="adicionar_episodio">Adicionar episodio</string>
+    <string name="nome_episodio">Nome Episodio</string>
+    <string name="duracao_episodio">Duracao Episodio</string>
+    <string name="visto">Visto</string>
+    <string name="salvar_episodio">Salvar Episodio</string>
 </resources>

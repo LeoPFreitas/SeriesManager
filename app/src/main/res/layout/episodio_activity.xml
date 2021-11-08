@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="5dp"
+    tools:context=".EpisodioActivity">
+
+    <TextView
+        android:id="@+id/nomeTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/nome_episodio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/nomeEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:enabled="true"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nomeTv" />
+
+    <TextView
+        android:id="@+id/numeroSequencialTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/numero_sequencial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nomeEt" />
+
+    <EditText
+        android:id="@+id/numeroSequencialEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:enabled="true"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialTv" />
+
+    <TextView
+        android:id="@+id/duracaoTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/duracao_episodio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialEt" />
+
+    <EditText
+        android:id="@+id/duracaoEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:enabled="true"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/duracaoTv" />
+
+    <CheckBox
+        android:id="@+id/vistoCb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/visto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/duracaoEt" />
+
+    <Button
+        android:id="@+id/salvarBt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/salvar_episodio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vistoCb" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

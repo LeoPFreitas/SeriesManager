@@ -14,13 +14,14 @@ class DatabaseBuilder(context: Context) {
 
         private val CRIAR_TABELA_GENERO_STMT =
             "CREATE TABLE IF NOT EXISTS ${GeneroSlite.TABLE_GENERO} (" +
-                    "${GeneroSlite.TABLE_GENERO} TEXT NOT NULL PRIMARY KEY);"
+                    "${GeneroSlite.COL_NOME} TEXT NOT NULL PRIMARY KEY);"
 
         private val INSERT_ROMANCE_TABELA_GENERO_STMT =
-            "INSERT INTO genero (nome) VALUES('Romance');"
+            "INSERT INTO genero (${GeneroSlite.COL_NOME}) VALUES('Romance');"
         private val INSERT_AVENTURA_TABELA_GENERO_STMT =
-            "INSERT INTO genero (nome) VALUES('Aventura');"
-        private val INSERT_TERROR_TABELA_GENERO_STMT = "INSERT INTO genero (nome) VALUES('Terror');"
+            "INSERT INTO genero (${GeneroSlite.COL_NOME}) VALUES('Aventura');"
+        private val INSERT_TERROR_TABELA_GENERO_STMT =
+            "INSERT INTO genero (${GeneroSlite.COL_NOME}) VALUES('Terror');"
 
         private val CRIAR_TABELA_SERIE_STMT =
             "CREATE TABLE IF NOT EXISTS ${SerieSqlite.TABLE_SERIE} (" +
@@ -28,7 +29,7 @@ class DatabaseBuilder(context: Context) {
                     "${SerieSqlite.COL_ANO_LANCAMENTO} TEXT NOT NULL, " +
                     "${SerieSqlite.COL_EMISSORA} TEXT NOT NULL, " +
                     "${SerieSqlite.COL_GENERO} TEXT NOT NULL, " +
-                    "FOREIGN KEY(${SerieSqlite.COL_GENERO}) REFERENCES genero(nome)" +
+                    "FOREIGN KEY(${SerieSqlite.COL_GENERO}) REFERENCES ${GeneroSlite.TABLE_GENERO}(${GeneroSlite.COL_NOME})" +
                     ");"
 
         private val CRIAR_TABELA_TEMPORADA_STMT =
@@ -37,6 +38,16 @@ class DatabaseBuilder(context: Context) {
                     "${TemporadaSqlite.COL_ANO_LANCAMENTO} TEXT NOT NULL, " +
                     "${TemporadaSqlite.COL_NOME_SERIE} TEXT NOT NULL, " +
                     "FOREIGN KEY(${TemporadaSqlite.COL_NOME_SERIE}) REFERENCES ${SerieSqlite.TABLE_SERIE}(${SerieSqlite.COL_NOME}) ON DELETE CASCADE" +
+                    ");"
+
+        private val CRIAR_TABELA_EPISODIO_STMT =
+            "CREATE TABLE IF NOT EXISTS ${EpisodioSqlite.TABLE_EPISODIO} (" +
+                    "${EpisodioSqlite.COL_NUMERO_SEQUENCIAL} INTEGER NOT NULL PRIMARY KEY, " +
+                    "${EpisodioSqlite.COL_NOME} TEXT NOT NULL, " +
+                    "${EpisodioSqlite.COL_DURACAO} INTEGER NOT NULL, " +
+                    "${EpisodioSqlite.COL_VISTO} INTEGER NOT NULL DEFAULT 0, " +
+                    "${EpisodioSqlite.COL_TEMPORADA} INTEGER NOT NULL, " +
+                    "FOREIGN KEY(${EpisodioSqlite.COL_TEMPORADA}) REFERENCES ${TemporadaSqlite.TABLE_TEMPORADA}(${TemporadaSqlite.COL_NUMERO_SEQUENCIAL}) ON DELETE CASCADE " +
                     ");"
     }
 
@@ -51,6 +62,7 @@ class DatabaseBuilder(context: Context) {
             seriesBD.execSQL(INSERT_TERROR_TABELA_GENERO_STMT)
             seriesBD.execSQL(CRIAR_TABELA_SERIE_STMT)
             seriesBD.execSQL(CRIAR_TABELA_TEMPORADA_STMT)
+            seriesBD.execSQL(CRIAR_TABELA_EPISODIO_STMT)
         } catch (se: SQLException) {
             Log.e(context.getString(R.string.app_name), se.toString())
         }

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoSeriesManager">
         <activity
+            android:name=".EpisodioActivity"
+            android:exported="true" />
+        <activity
             android:name=".EpisodiosMainActivity"
             android:exported="true" />
         <activity

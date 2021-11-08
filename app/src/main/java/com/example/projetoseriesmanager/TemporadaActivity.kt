@@ -22,7 +22,7 @@ class TemporadaActivity : AppCompatActivity() {
         setContentView(temporadaActivity.root)
 
         temporadaActivity.salvarBt.setOnClickListener {
-            serie = intent.getParcelableExtra<Serie>(EXTRA_SERIE)!!
+            serie = intent.getParcelableExtra(EXTRA_SERIE)!!
             temporada = Temporada(
                 temporadaActivity.numeroSequencialEpisodioEt.text.toString().toInt(),
                 temporadaActivity.anoLancamentoEt.text.toString(),
