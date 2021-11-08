@@ -78,6 +78,7 @@ class SerieSqlite(context: Context) : SerieDAO {
     }
 
     override fun remove(nome: String): Int {
+        serieDatabase.execSQL("PRAGMA foreign_keys = ON")
         return serieDatabase.delete(TABLE_SERIE, "$COL_NOME = ?", arrayOf(nome))
     }
 
