@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Projeto SeriesManager</string>
+    <string name="app_name">SeriesManager</string>
     <string name="series_adicionadas">series adicionadas</string>
     <string name="adicionar_serie">Adicionar serie</string>
     <string name="nomeTvHint">Nome</string>
