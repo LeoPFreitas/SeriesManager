@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.example.projetoseriesmanager.model.Temporada
+import com.example.projetoseriesmanager.repository.sqlite.DatabaseBuilder
 
 class TemporadaSqlite(context: Context) : TemporadaDAO {
     companion object SerieCompanion {
@@ -68,18 +69,6 @@ class TemporadaSqlite(context: Context) : TemporadaDAO {
             }
         }
         return temporadas
-    }
-
-    override fun getTemporadaId(nomeSerie: String, numeroSequencial: Int): Int {
-        val temporadaCursor = serieDatabase.rawQuery(
-            "SELECT id from temporada WHERE numero_sequencial = ?  AND nome_serie = ?",
-            arrayOf(numeroSequencial.toString(), nomeSerie)
-        )
-        var temporadaId: Int = 0
-        if (temporadaCursor.moveToFirst()) {
-            temporadaId = temporadaCursor.getInt(temporadaCursor.getColumnIndexOrThrow("id"))
-        }
-        return temporadaId
     }
 
     override fun update(temporada: Temporada): Int {

@@ -2,6 +2,7 @@ package com.example.projetoseriesmanager
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -148,6 +149,26 @@ class EpisodiosMainActivity : AppCompatActivity() {
         super.onStart()
         if (AuthFirebase.firebaseAuth.currentUser == null) {
             finish()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.refreshMi -> {
+            episodioRvAdapter.notifyDataSetChanged()
+            true
+        }
+        R.id.sairMi -> {
+            AuthFirebase.firebaseAuth.signOut()
+            finish()
+            true
+        }
+        else -> {
+            false
         }
     }
 }

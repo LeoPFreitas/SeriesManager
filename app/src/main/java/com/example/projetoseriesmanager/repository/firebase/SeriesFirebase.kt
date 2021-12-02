@@ -1,5 +1,6 @@
-package com.example.projetoseriesmanager.model
+package com.example.projetoseriesmanager.repository.firebase
 
+import com.example.projetoseriesmanager.model.Serie
 import com.example.projetoseriesmanager.repository.SerieDAO
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -8,7 +9,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
-import java.util.*
 
 class SeriesFirebase : SerieDAO {
     companion object {

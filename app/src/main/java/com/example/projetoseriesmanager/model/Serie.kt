@@ -8,5 +8,6 @@ data class Serie(
     val nome: String = "",
     var anoLancamento: String = "",
     var emissora: String = "",
-    var genero: String = ""
+    var genero: String = "",
+    val temporadas: List<Temporada> = emptyList()
 ) : Parcelable

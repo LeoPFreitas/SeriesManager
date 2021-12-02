@@ -1,9 +1,10 @@
-package com.example.projetoseriesmanager.repository
+package com.example.projetoseriesmanager.repository.sqlite
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.example.projetoseriesmanager.model.Serie
+import com.example.projetoseriesmanager.repository.SerieDAO
 
 class SerieSqlite(context: Context) : SerieDAO {
     companion object SerieCompanion {

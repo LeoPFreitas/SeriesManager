@@ -1,9 +1,10 @@
-package com.example.projetoseriesmanager.repository
+package com.example.projetoseriesmanager.repository.sqlite
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.example.projetoseriesmanager.model.Genero
+import com.example.projetoseriesmanager.repository.GeneroDAO
 
 class GeneroSlite(context: Context) : GeneroDAO {
     companion object GeneroCompanion {

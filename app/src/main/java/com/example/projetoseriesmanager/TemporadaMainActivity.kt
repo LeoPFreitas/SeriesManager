@@ -2,6 +2,7 @@ package com.example.projetoseriesmanager
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,7 +33,7 @@ class TemporadaMainActivity : AppCompatActivity(), OnTemporadaClickListener {
         val findAllTemporadas = temporadaController.findAllTemporadas(serie.nome)
         findAllTemporadas
     }
-    private val temporadaAdapter: TemporadaRvAdapter by lazy {
+    private val temporadaRvAdapter: TemporadaRvAdapter by lazy {
         TemporadaRvAdapter(
             this,
             temporadaList
@@ -53,7 +54,7 @@ class TemporadaMainActivity : AppCompatActivity(), OnTemporadaClickListener {
         // dados da serie
         fillActivityWithSerieData()
 
-        temporadaMainActivityBinding.temporadaRv.adapter = temporadaAdapter
+        temporadaMainActivityBinding.temporadaRv.adapter = temporadaRvAdapter
         temporadaMainActivityBinding.temporadaRv.layoutManager = temporadaLayoutManager
 
         // Add temporada
@@ -63,7 +64,7 @@ class TemporadaMainActivity : AppCompatActivity(), OnTemporadaClickListener {
                     resultado.data?.getParcelableExtra<Temporada>(EXTRA_TEMPORADA)?.apply {
                         temporadaController.addTemporada(this)
                         temporadaList.add(this)
-                        temporadaAdapter.notifyDataSetChanged()
+                        temporadaRvAdapter.notifyDataSetChanged()
                     }
                 }
             }
@@ -78,7 +79,7 @@ class TemporadaMainActivity : AppCompatActivity(), OnTemporadaClickListener {
                         if (position != null && position != -1) {
                             temporadaController.update(this)
                             temporadaList[position] = this
-                            temporadaAdapter.notifyDataSetChanged()
+                            temporadaRvAdapter.notifyDataSetChanged()
                         }
                     }
                 }
@@ -101,7 +102,7 @@ class TemporadaMainActivity : AppCompatActivity(), OnTemporadaClickListener {
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        val position = temporadaAdapter.contextMenuPosition
+        val position = temporadaRvAdapter.contextMenuPosition
         return when (item.itemId) {
             R.id.editTemporadaMi -> {
                 val temporada = temporadaList[position]
@@ -130,7 +131,7 @@ class TemporadaMainActivity : AppCompatActivity(), OnTemporadaClickListener {
                             Snackbar.LENGTH_SHORT
                         ).show()
                         temporadaList.removeAt(position)
-                        temporadaAdapter.notifyDataSetChanged()
+                        temporadaRvAdapter.notifyDataSetChanged()
                     }
                     setNegativeButton("Não") { _, _ ->
                         Snackbar.make(
@@ -166,6 +167,26 @@ class TemporadaMainActivity : AppCompatActivity(), OnTemporadaClickListener {
         super.onStart()
         if (AuthFirebase.firebaseAuth.currentUser == null) {
             finish()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.refreshMi -> {
+            temporadaRvAdapter.notifyDataSetChanged()
+            true
+        }
+        R.id.sairMi -> {
+            AuthFirebase.firebaseAuth.signOut()
+            finish()
+            true
+        }
+        else -> {
+            false
         }
     }
 }

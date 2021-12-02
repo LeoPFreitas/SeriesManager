@@ -1,9 +1,10 @@
-package com.example.projetoseriesmanager.repository
+package com.example.projetoseriesmanager.repository.sqlite
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.example.projetoseriesmanager.model.Episodio
+import com.example.projetoseriesmanager.repository.EpisodioDAO
 
 class EpisodioSqlite(context: Context) : EpisodioDAO {
     companion object SerieCompanion {
@@ -22,33 +23,6 @@ class EpisodioSqlite(context: Context) : EpisodioDAO {
         episodioToContentValues(episodioCv, episodio)
 
         return serieDatabase.insert(TABLE_EPISODIO, null, episodioCv)
-    }
-
-    override fun getOne(numeroSequencial: Int): Episodio {
-        val episodioCursor = serieDatabase.query(
-            true,
-            TABLE_EPISODIO,
-            null,
-            "$TABLE_EPISODIO = ?",
-            arrayOf(numeroSequencial.toString()),
-            null,
-            null,
-            null,
-            null
-        )
-
-        return if (episodioCursor.moveToFirst()) {
-            with(episodioCursor) {
-                Episodio(
-                    getInt(getColumnIndexOrThrow(COL_NUMERO_SEQUENCIAL)),
-                    getString(getColumnIndexOrThrow(COL_NOME)),
-                    getInt(getColumnIndexOrThrow(COL_DURACAO)),
-                    getString(getColumnIndexOrThrow(COL_VISTO)).toBoolean()
-                )
-            }
-        } else {
-            Episodio()
-        }
     }
 
     override fun getAll(temporadaNumeroSequencial: Int): MutableList<Episodio> {
