@@ -142,6 +142,12 @@ class EpisodiosMainActivity : AppCompatActivity() {
             }
             else -> false
         }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        if (AuthFirebase.firebaseAuth.currentUser == null) {
+            finish()
+        }
     }
 }

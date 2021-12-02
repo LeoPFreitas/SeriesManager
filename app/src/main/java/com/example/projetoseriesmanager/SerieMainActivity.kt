@@ -2,6 +2,7 @@ package com.example.projetoseriesmanager
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -137,5 +138,32 @@ class SerieMainActivity : AppCompatActivity(), OnSerieClickListener {
         val viewSerieIntent = Intent(this, TemporadaMainActivity::class.java)
         viewSerieIntent.putExtra(EXTRA_SERIE, serie)
         startActivity(viewSerieIntent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.refreshMi -> {
+            seriesAdapter.notifyDataSetChanged()
+            true
+        }
+        R.id.sairMi -> {
+            AuthFirebase.firebaseAuth.signOut()
+            finish()
+            true
+        }
+        else -> {
+            false
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (AuthFirebase.firebaseAuth.currentUser == null) {
+            finish()
+        }
     }
 }

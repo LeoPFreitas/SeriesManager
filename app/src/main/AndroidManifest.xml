@@ -10,6 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoSeriesManager">
         <activity
+            android:name=".CadastrarUsuarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AutenticacaoActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".RecuperarSenhaActivity"
+            android:exported="false" />
+        <activity
             android:name=".EpisodioActivity"
             android:exported="true" />
         <activity
@@ -26,13 +42,7 @@
             android:exported="true" />
         <activity
             android:name=".SerieMainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>

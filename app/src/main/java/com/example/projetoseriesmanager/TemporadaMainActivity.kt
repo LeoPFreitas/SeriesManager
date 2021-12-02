@@ -161,4 +161,11 @@ class TemporadaMainActivity : AppCompatActivity(), OnTemporadaClickListener {
         temporadaMainActivityBinding.emissoraTv.text = serie.emissora
         temporadaMainActivityBinding.generoTv.text = serie.genero
     }
+
+    override fun onStart() {
+        super.onStart()
+        if (AuthFirebase.firebaseAuth.currentUser == null) {
+            finish()
+        }
+    }
 }
