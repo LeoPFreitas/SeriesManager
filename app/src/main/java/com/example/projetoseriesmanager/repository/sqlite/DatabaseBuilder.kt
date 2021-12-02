@@ -1,4 +1,4 @@
-package com.example.projetoseriesmanager.repository
+package com.example.projetoseriesmanager.repository.sqlite
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -6,6 +6,7 @@ import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
 import com.example.projetoseriesmanager.R
+import com.example.projetoseriesmanager.repository.TemporadaSqlite
 
 class DatabaseBuilder(context: Context) {
 

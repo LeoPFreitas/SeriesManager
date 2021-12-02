@@ -2,9 +2,8 @@ package com.example.projetoseriesmanager.controller
 
 import com.example.projetoseriesmanager.SerieMainActivity
 import com.example.projetoseriesmanager.model.Serie
-import com.example.projetoseriesmanager.model.SeriesFirebase
+import com.example.projetoseriesmanager.repository.firebase.SeriesFirebase
 import com.example.projetoseriesmanager.repository.SerieDAO
-import com.example.projetoseriesmanager.repository.SerieSqlite
 
 class SerieController(mainActivity: SerieMainActivity) {
     private val serieDAO: SerieDAO = SeriesFirebase()

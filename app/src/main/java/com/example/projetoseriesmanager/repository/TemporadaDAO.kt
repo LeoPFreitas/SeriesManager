@@ -7,6 +7,5 @@ interface TemporadaDAO {
     fun create(temporada: Temporada): Long
 
     fun getAllTemporadas(nomeSerie: String): MutableList<Temporada>
-    fun getTemporadaId(nomeSerie: String, numeroSequencial: Int): Int
     fun update(temporada: Temporada): Int
 }

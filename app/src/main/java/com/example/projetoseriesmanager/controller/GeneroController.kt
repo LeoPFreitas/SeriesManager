@@ -3,7 +3,7 @@ package com.example.projetoseriesmanager.controller
 import com.example.projetoseriesmanager.SerieActivity
 import com.example.projetoseriesmanager.model.Genero
 import com.example.projetoseriesmanager.repository.GeneroDAO
-import com.example.projetoseriesmanager.repository.GeneroSlite
+import com.example.projetoseriesmanager.repository.sqlite.GeneroSlite
 
 class GeneroController(serieActivity: SerieActivity) {
 
